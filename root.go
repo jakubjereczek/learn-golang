@@ -3,12 +3,26 @@ package main // in golang we need to split code into packages to organize code, 
 
 // build in packages: https://pkg.go.dev/std
 
+// go standard packages:
+// https://pkg.go.dev/std
+
+// you can also install third-party libraries
+// e.g. https://pkg.go.dev/github.com/brianvoe/gofakeit/v7
+// install go get ...
+// e.g. go get github.com/brianvoe/gofakeit
+
+// go get - install
+
 import (
 	"errors"
 	"fmt"
 	"math"
 	"os"
-	"strconv"
+
+	// import local package
+	"example.com/investment_calculator/fileops"
+	// third-parties
+	"github.com/brianvoe/gofakeit"
 )
 
 // this also must be named main (go knows which code to execute)
@@ -26,7 +40,8 @@ func main() {
 	// exit and throw error in console. it looks more like a crash
 	// panic("Cannot continue. I'm sorry.")
 
-	ProfitCalculator2()
+	// ProfitCalculator2()
+	DummyData()
 }
 
 // exec:
@@ -191,10 +206,8 @@ func Bank() {
 
 	// for i := 0; i < 2; i++ {
 	for {
-		fmt.Println("Welcome to GO bank.")
-		fmt.Println("What do you want to do?")
-		fmt.Print("1. Check balance \n2. Deposit money \n3. Withdraw money \n4. Exit \n")
-
+		// import from other file
+		// PresentOptions()
 		var choice int
 		fmt.Print("Your choice: ")
 		fmt.Scan(&choice)
@@ -238,6 +251,13 @@ func Bank() {
 	fmt.Println("Thanks for choosing our bank.")
 }
 
+// it moved into package
+// func PresentOptions() {
+// 	fmt.Println("Welcome to GO bank.")
+// 	fmt.Println("What do you want to do?")
+// 	fmt.Print("1. Check balance \n2. Deposit money \n3. Withdraw money \n4. Exit \n")
+// }
+
 // go has only for loop (there is no while construction)
 // * for i := 0; i < 2; i++ { }
 // * infinity loop - for {}
@@ -268,7 +288,8 @@ func Bank2() {
 }
 
 func WritingToFiles() {
-	balance, err := ReadFromFile()
+	// use func from local file
+	balance, err := fileops.GetFloatFromFile(file, 1000)
 
 	if err != nil {
 		fmt.Println("Error")
@@ -281,37 +302,10 @@ func WritingToFiles() {
 	fmt.Print("Change balance: ")
 	fmt.Scan(&amount)
 
-	WriteToFile(amount)
+	fileops.WriteFloatToFile(amount, file)
 }
 
 const file = "balance.txt"
-
-func WriteToFile(balance float64) {
-	// convert to text
-	balanceText := fmt.Sprint(balance)
-	// convert to byte collection, permission like linux (owner read write)
-	os.WriteFile(file, []byte(balanceText), 0644)
-}
-
-// returning a custom error
-func ReadFromFile() (float64, error) {
-	// errors
-	// if error occurs it doesnt crash the application!
-	// in go functions do not crash the application
-
-	b, err := os.ReadFile(file)
-	// error handling:
-	if err != nil {
-		// if error is nil = no error
-
-		// produce new error
-		return 1000, errors.New("Failed to read file")
-	}
-	balanceText := string(b)
-	res, _ := strconv.ParseFloat(balanceText, 64) // use _ to skip compilator check (not used...)
-
-	return res, nil
-}
 
 // more advanced
 
@@ -349,4 +343,8 @@ func GetValue2(info string) (float64, error) {
 func StoreResults(ebt, profit, ratio float64) {
 	txt := fmt.Sprintf("EBT: %.1f\nPROFIT: %.f\nRATIO: %.3f\n", ebt, profit, ratio) // generate new string
 	os.WriteFile("results.txt", []byte(txt), 0644)
+}
+
+func DummyData() {
+	fmt.Println("Dummy CarModel", gofakeit.CarModel())
 }
