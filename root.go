@@ -41,7 +41,9 @@ func main() {
 	// panic("Cannot continue. I'm sorry.")
 
 	// ProfitCalculator2()
-	DummyData()
+	// DummyData()
+
+	Pointers()
 }
 
 // exec:
