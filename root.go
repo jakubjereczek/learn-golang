@@ -43,7 +43,9 @@ func main() {
 	// ProfitCalculator2()
 	// DummyData()
 
-	Pointers()
+	// Pointers()
+	// Structs()
+	Structs2()
 }
 
 // exec:
