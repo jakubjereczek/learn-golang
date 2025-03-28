@@ -45,7 +45,8 @@ func main() {
 
 	// Pointers()
 	// Structs()
-	Structs2()
+	// Structs2()
+	Interfaces()
 }
 
 // exec:
