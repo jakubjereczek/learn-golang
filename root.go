@@ -46,7 +46,11 @@ func main() {
 	// Pointers()
 	// Structs()
 	// Structs2()
-	Interfaces()
+	// Interfaces()
+	// Lists()
+	// Maps()
+	// Make()
+	Loops()
 }
 
 // exec:
