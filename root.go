@@ -50,7 +50,9 @@ func main() {
 	// Lists()
 	// Maps()
 	// Make()
-	Loops()
+	// Loops()
+
+	FunctionsDeepDive()
 }
 
 // exec:
